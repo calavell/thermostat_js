@@ -16,6 +16,11 @@ describe("Thermostat", function() {
       thermostat.up(2);
       expect(thermostat.currentTemperature()).toEqual(thermostat.INITIAL_TEMPERATURE + 2);
     });
+
+    it("will throw error if user tries to increase above 25 when in power saving mode", function() {
+      thermostat.switchOnPowerSaving();
+      expect(function() {thermostat.up(7)} ).toThrowError(`Due to powersaving mode you cannot exceed ${thermostat.POWER_SAVING_UPPER_LIMIT} degrees!`);
+    });
   });
 
   describe("down", function () {
@@ -23,9 +28,18 @@ describe("Thermostat", function() {
       thermostat.down(2);
       expect(thermostat.currentTemperature()).toEqual(thermostat.INITIAL_TEMPERATURE - 2);
     });
-    it("throws an error if temp would be taken below 10 degrees", function() {
-      expect(function() {thermostat.down(thermostat.INITIAL_TEMPERATURE - thermostat.MINIMUM_TEMPERATURE + 1)} ).toThrowError("Minimum temperature is 10 degrees!");
+    it("throws an error if temp would be taken below minimum degrees", function() {
+      expect(function() {thermostat.down(thermostat.INITIAL_TEMPERATURE - thermostat.MINIMUM_TEMPERATURE + 1)} ).toThrowError(`Minimum temperature is ${thermostat.MINIMUM_TEMPERATURE} degrees!`);
+    });
+  });
+
+  describe("switchOnPowerSaving", function() {
+    it("allows user to enter power saving mode", function() {
+      thermostat.switchOnPowerSaving();
+      expect(thermostat.powerSavingMode).toEqual(true);
     });
   });
 
 });
+
+// thermostat.POWER_SAVING_UPPER_LIMIT - thermostat.INITIAL_TEMPERATURE + 1
