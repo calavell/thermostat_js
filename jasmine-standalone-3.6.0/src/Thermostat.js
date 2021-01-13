@@ -10,12 +10,22 @@ class Thermostat {
     this.temperature = this.INITIAL_TEMPERATURE;
   }
 
-  currentTemperature() {
+
+  isPowerSavingModeOn() {
+    return this.powerSavingMode === true;
+  }
+
+  getCurrentTemperature() {
     return this.temperature;
   }
 
+  setPowerSavingOn() {
+    this.powerSavingMode = true;
+  }
+
+
   up(amount) {
-    if (this.powerSavingMode === true && amount + this.temperature > this.POWER_SAVING_UPPER_LIMIT) {
+    if (this.isPowerSavingModeOn() === true && amount + this.temperature > this.POWER_SAVING_UPPER_LIMIT) {
       throw new Error(`Due to powersaving mode you cannot exceed ${this.POWER_SAVING_UPPER_LIMIT} degrees!`);
     } else {
       this.temperature += amount;
@@ -30,8 +40,9 @@ class Thermostat {
     }
   }
 
-  switchOnPowerSaving() {
-    this.powerSavingMode = true;
+  isMinimumTemperature() {
+    return this.temperature === this.MINIMUM_TEMPERATURE;
   }
+
 
 }
