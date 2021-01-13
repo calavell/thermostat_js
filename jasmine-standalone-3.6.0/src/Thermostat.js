@@ -3,7 +3,10 @@
 class Thermostat {
 
   constructor() {
-    this.temperature = 20;
+    this.INITIAL_TEMPERATURE = 20;
+    this.MINIMUM_TEMPERATURE = 10;
+    
+    this.temperature = this.INITIAL_TEMPERATURE;
   }
 
   currentTemperature() {
@@ -15,8 +18,8 @@ class Thermostat {
   }
 
   down(amount) {
-    if(this.temperature - amount < 10) {
-      throw new Error("Minimum temperature is 10 degrees!");
+    if(this.temperature - amount < this.MINIMUM_TEMPERATURE) {
+      throw new Error(`Minimum temperature is ${this.MINIMUM_TEMPERATURE} degrees!`);
     } else {
       this.temperature -= amount;
     }
