@@ -23,6 +23,9 @@ describe("Thermostat", function() {
       thermostat.down(2);
       expect(thermostat.currentTemperature()).toEqual(18);
     });
+    it("throws an error if temp would be taken below 10 degrees", function() {
+      expect(function() {thermostat.down(11)} ).toThrowError("Minimum temperature is 10 degrees!");
+    });
   });
 
 });

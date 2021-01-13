@@ -15,7 +15,12 @@ class Thermostat {
   }
 
   down(amount) {
-    this.temperature -= amount;
+    if(this.temperature - amount < 10) {
+      throw new Error("Minimum temperature is 10 degrees!");
+    } else {
+      this.temperature -= amount;
+    }
+
   }
 
 }
