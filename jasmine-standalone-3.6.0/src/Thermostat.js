@@ -8,7 +8,7 @@ class Thermostat {
     this.powerSavingMode = true;
     this.POWER_SAVING_UPPER_LIMIT = 25;
     this.UPPER_LIMIT = 32;
-    this.temperature = this.INITIAL_TEMPERATURE;
+    this.temperature = this.INITIAL_TEMPERATURE; 20
   }
 
 
@@ -53,9 +53,13 @@ class Thermostat {
     }
       return this.temperature === this.UPPER_LIMIT;
   }
+
   switchPowerSavingOff() {
     this.powerSavingMode = false;
   }
 
+  resetTemperature() {
+    this.temperature = this.INITIAL_TEMPERATURE;
+  }
 
 }

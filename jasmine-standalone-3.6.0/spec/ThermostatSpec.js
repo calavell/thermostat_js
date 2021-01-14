@@ -18,7 +18,7 @@ describe("Thermostat", function() {
     });
 
     it("will throw error if user tries to increase above 25 when in power saving mode", function () {
-      
+
       thermostat.setPowerSavingOn();
       for (var i = 0; i < 5; i++) {
         thermostat.up();
@@ -57,10 +57,28 @@ describe("Thermostat", function() {
   });
   describe("isPowerSavingModeOn", function () {
     it("is on by default", function () {
-      
+
       expect(thermostat.isPowerSavingModeOn()).toEqual(true);
     });
   });
+
+  describe("resetTemperature", function () {
+    it("resets current temperature to 20 degrees", function() {
+      for (var i = 0; i < 5; i++) {
+        thermostat.up();
+      }
+      thermostat.resetTemperature();
+      expect(thermostat.getCurrentTemperature()).toEqual(20);
+    })
+
+    it("resets current temperature to 20 degrees", function() {
+      for (var i = 0; i < 5; i++) {
+        thermostat.up();
+      }
+      thermostat.resetTemperature();
+      expect(function() {thermostat.up()} ).not.toThrowError(`Due to powersaving mode you cannot exceed ${thermostat.POWER_SAVING_UPPER_LIMIT} degrees!`);
+    })
+  })
 });
 
 // thermostat.POWER_SAVING_UPPER_LIMIT - thermostat.INITIAL_TEMPERATURE + 1
