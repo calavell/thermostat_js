@@ -24,19 +24,19 @@ class Thermostat {
   }
 
 
-  up(amount) {
-    if (this.isPowerSavingModeOn() === true && amount + this.temperature > this.POWER_SAVING_UPPER_LIMIT) {
+  up() {
+    if (this.isPowerSavingModeOn() === true && this.temperature === this.POWER_SAVING_UPPER_LIMIT) {
       throw new Error(`Due to powersaving mode you cannot exceed ${this.POWER_SAVING_UPPER_LIMIT} degrees!`);
     } else {
-      this.temperature += amount;
+      this.temperature += 1;
     }
   }
 
-  down(amount) {
-    if(this.temperature - amount < this.MINIMUM_TEMPERATURE) {
+  down() {
+    if(this.temperature === this.MINIMUM_TEMPERATURE) {
       throw new Error(`Minimum temperature is ${this.MINIMUM_TEMPERATURE} degrees!`);
     } else {
-      this.temperature -= amount;
+      this.temperature -= 1;
     }
   }
 

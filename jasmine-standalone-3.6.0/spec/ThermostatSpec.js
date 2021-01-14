@@ -12,24 +12,30 @@ describe("Thermostat", function() {
   });
 
   describe("up", function () {
-    it("increases the temperature by the inputted amount", function() {
-      thermostat.up(2);
-      expect(thermostat.getCurrentTemperature()).toEqual(thermostat.INITIAL_TEMPERATURE + 2);
+    it("increases the temperature by 1", function() {
+      thermostat.up();
+      expect(thermostat.getCurrentTemperature()).toEqual(thermostat.INITIAL_TEMPERATURE + 1);
     });
 
     it("will throw error if user tries to increase above 25 when in power saving mode", function() {
       thermostat.setPowerSavingOn();
-      expect(function() {thermostat.up(7)} ).toThrowError(`Due to powersaving mode you cannot exceed ${thermostat.POWER_SAVING_UPPER_LIMIT} degrees!`);
+      for (var i = 0; i < 5; i++) {
+        thermostat.up();
+      }
+      expect(function() {thermostat.up()} ).toThrowError(`Due to powersaving mode you cannot exceed ${thermostat.POWER_SAVING_UPPER_LIMIT} degrees!`);
     });
   });
 
   describe("down", function () {
-    it("decreases the temperature by the inputted amount", function() {
-      thermostat.down(2);
-      expect(thermostat.getCurrentTemperature()).toEqual(thermostat.INITIAL_TEMPERATURE - 2);
+    it("decreases the temperature by 1", function() {
+        thermostat.down();
+      expect(thermostat.getCurrentTemperature()).toEqual(19);
     });
     it("throws an error if temp would be taken below minimum degrees", function() {
-      expect(function() {thermostat.down(thermostat.INITIAL_TEMPERATURE - thermostat.MINIMUM_TEMPERATURE + 1)} ).toThrowError(`Minimum temperature is ${thermostat.MINIMUM_TEMPERATURE} degrees!`);
+      for (var i = 0; i < 10; i++) {
+        thermostat.down();
+      }
+      expect(function() {thermostat.down()} ).toThrowError(`Minimum temperature is ${thermostat.MINIMUM_TEMPERATURE} degrees!`);
     });
   });
 
