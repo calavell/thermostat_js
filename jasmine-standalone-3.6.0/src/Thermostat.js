@@ -56,6 +56,14 @@ class Thermostat {
   switchPowerSavingOff() {
     this.powerSavingMode = false;
   }
-
+  currentUsage() {
+    if (this.temperature < 18) {
+      return "Low-usage"
+    }else if (this.temperature <= 25) {
+      return "Medium-usage"
+    } else {
+      return "High-usage"
+    }
+  }
 
 }
