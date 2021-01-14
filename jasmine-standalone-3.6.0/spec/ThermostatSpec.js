@@ -24,6 +24,14 @@ describe("Thermostat", function() {
       }
       expect(function() {thermostat.up()} ).toThrowError(`Due to powersaving mode you cannot exceed ${thermostat.POWER_SAVING_UPPER_LIMIT} degrees!`);
     });
+
+    it("will throw error if user tries to increase above 32 when not in powersaving mode", function() {
+      for (var i = 0; i < 12; i++) {
+        thermostat.up();
+      }
+      console.log(thermostat.isPowerSavingModeOn());
+      expect(function() {thermostat.up()} ).toThrowError(`You cannot exceed ${thermostat.UPPER_LIMIT} degrees!`);
+    });
   });
 
   describe("down", function () {
