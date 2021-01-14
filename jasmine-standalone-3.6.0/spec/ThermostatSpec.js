@@ -55,12 +55,6 @@ describe("Thermostat", function() {
       expect(thermostat.isPowerSavingModeOn()).toEqual(true);
     });
   });
-  describe("isPowerSavingModeOn", function () {
-    it("is on by default", function () {
-
-      expect(thermostat.isPowerSavingModeOn()).toEqual(true);
-    });
-  });
 
   describe("resetTemperature", function () {
     it("resets current temperature to 20 degrees", function() {
@@ -79,6 +73,33 @@ describe("Thermostat", function() {
       expect(function() {thermostat.up()} ).not.toThrowError(`Due to powersaving mode you cannot exceed ${thermostat.POWER_SAVING_UPPER_LIMIT} degrees!`);
     })
   })
+
+  describe("isPowerSavingModeOn", function () {
+    it("is on by default", function () {
+      expect(thermostat.isPowerSavingModeOn()).toEqual(true);
+    });
+  });
+
+  describe("currentUsage", () =>{
+    it("is low-usage", () => {
+      for (var i = 0; i < 10; i++) {
+        thermostat.down();
+      }
+      expect(thermostat.currentUsage()).toEqual("Low-usage");
+    });
+
+    it("is medium-usage", () => {
+      expect(thermostat.currentUsage()).toEqual("Medium-usage");
+    });
+
+    it("is high-usage", () => {
+      thermostat.switchPowerSavingOff()
+      for (var i = 0; i < 6; i++) {
+        thermostat.up();
+      }
+      expect(thermostat.currentUsage()).toEqual("High-usage");
+    });
+  });
 });
 
 // thermostat.POWER_SAVING_UPPER_LIMIT - thermostat.INITIAL_TEMPERATURE + 1
