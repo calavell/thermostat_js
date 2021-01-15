@@ -4,6 +4,7 @@ $(document).ready(function() {
     $('.esl').html(thermostat.currentUsage());
     $('.psm').html(thermostat.powerSavingMode);
 
+
     $('#temperature-up').on('click', function (){
       thermostat.up();
       updateTemperature();
@@ -35,6 +36,17 @@ $(document).ready(function() {
       togglePsmButton();
       updatePowerSavingMode();
     })
+
+    $('#current-city').change(function() {
+      var city = $('#current-city').val();
+      $.get('http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=a3d9eb01d4de82b9b8d0849ef604dbed&units=metric', function(data) {
+        $('.outsideTemp').text(data.main.temp)
+      })
+    })
+
+    $.get("https://api.openweathermap.org/data/2.5/weather?q=london&appid=688628afe0bd824161b1dbff97ca97ba&units=metric", function(data) {
+      $(".outsideTemp").text(data.main.temp);
+    });
 
 
 
