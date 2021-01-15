@@ -27,8 +27,10 @@ class Thermostat {
 
   up() {
     if (this.isPowerSavingModeOn() === true && this.isMaximumTemperature() === true) {
+      alert(`Due to powersaving mode you cannot exceed ${this.POWER_SAVING_UPPER_LIMIT} degrees!`);
       throw new Error(`Due to powersaving mode you cannot exceed ${this.POWER_SAVING_UPPER_LIMIT} degrees!`);
     } else if (this.isPowerSavingModeOn() === false && this.temperature === this.UPPER_LIMIT) {
+      alert(`You cannot exceed ${this.UPPER_LIMIT} degrees!`);
       throw new Error(`You cannot exceed ${this.UPPER_LIMIT} degrees!`);
     } else {
       this.temperature += 1;
@@ -37,6 +39,7 @@ class Thermostat {
 
   down() {
     if(this.temperature === this.MINIMUM_TEMPERATURE) {
+      alert(`Minimum temperature is ${this.MINIMUM_TEMPERATURE} degrees!`);
       throw new Error(`Minimum temperature is ${this.MINIMUM_TEMPERATURE} degrees!`);
     } else {
       this.temperature -= 1;
